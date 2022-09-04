@@ -16,7 +16,12 @@ jobs:
       - name: Build
         run: |
           xcodebuild  -project RickAndMorty.xcodeproj  -scheme RickAndMorty  -destination 'platform=iOS Simulator,name=iPhone 13' CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
-      - name: Linter
+
+  linter:
+    name: Linter
+    runs-on: ubuntu-latest
+    steps:
+      - name: Linting
         uses: raphaelbussa/swiftlint-action@main
         with:
           subcommand: lint --strict     

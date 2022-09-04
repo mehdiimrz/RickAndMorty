@@ -16,15 +16,15 @@ jobs:
       - name: Build
         run: |
           xcodebuild  -project RickAndMorty.xcodeproj  -scheme RickAndMorty  -destination 'platform=iOS Simulator,name=iPhone 13' CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+          
+          swiftlint lint --reporter github-actions-logging
 
-  linter:
-    name: Linter
-    runs-on: ubuntu-latest
+  SwiftLint:
+    runs-on: macOS-latest
     steps:
-      - name: Linting
-        uses: raphaelbussa/swiftlint-action@main
-        with:
-          subcommand: lint --strict     
+      - uses: actions/checkout@main
+      - name: Lint code using SwiftLint
+        run: swiftlint lint --reporter github-actions-logging 
       
   test:
     name: Test

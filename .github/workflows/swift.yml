@@ -1,4 +1,4 @@
-name: Swift
+name: Workflow
 
 on:
   push:
@@ -9,11 +9,24 @@ on:
 jobs:
   build:
 
-    runs-on: macos-latest
+    runs-on: macOS-latest
+    strategy:
+      matrix:
+        destination: ['platform=iOS Simulator,OS=12.4,name=iPhone 11 Pro Max']
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@master
     - name: Build
       run: swift build -v
-    - name: Run tests
-      run: swift test -v
+
+  test:
+      name: Test
+      runs-on: macOS-latest
+      strategy:
+          matrix:
+            destination: ['platform=iOS Simulator,OS=12.4,name=iPhone 11 Pro Max']
+      steps:
+        - name: Checkout
+          uses: actions/checkout@master
+        - name: Run tests
+          run: set -o pipefail && xcodebuild test-without-building -xctestrun $(find . -type f -name "*.xctestrun") -destination "platform=iOS Simulator,name=$DEVICE" -derivedDataPath $DERIVED_DATA_PATH -enableCodeCoverage YES

@@ -1,0 +1,19 @@
+name: UI Test
+
+on:
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  ui-test:
+    name: UI Test
+    runs-on: macOS-latest
+    strategy:
+        matrix:
+          destination: ['platform=iOS Simulator,OS=15.2,name=iPhone X','platform=iOS Simulator,OS=15.2,name=iPhone 13 Pro']
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+      - name: Build and test
+        run: |
+          xcodebuild test -project RickAndMorty.xcodeproj -scheme RickAndMorty -destination "${destination}" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -only-testing:RickAndMortyUITests

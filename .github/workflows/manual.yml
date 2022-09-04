@@ -3,7 +3,6 @@ name: UI Test
 on:
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   ui-test:
     name: UI Test
@@ -16,4 +15,4 @@ jobs:
         uses: actions/checkout@main
       - name: Build and test
         run: |
-          xcodebuild test -project RickAndMorty.xcodeproj -scheme RickAndMorty -destination "${destination}" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -only-testing:RickAndMortyUITests
+          xcodebuild test -project RickAndMorty.xcodeproj -scheme RickAndMorty -destination 'platform=iOS Simulator,name=iPhone 13' -only-testing:RickAndMortyUITests CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -enableCodeCoverage YES

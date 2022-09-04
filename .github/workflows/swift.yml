@@ -7,12 +7,12 @@ on:
     branches: [ "main" ]
 
 jobs:
-  test:
-    name: Test
+  build:
+    name: Build
     runs-on: macOS-latest
     strategy:
         matrix:
-          destination: ['platform=iOS Simulator,OS=15.2,name=iPhone 12','platform=iOS Simulator,OS=15.2,name=iPhone 13 Pro']
+          destination: ['platform=iOS Simulator,OS=15.2,name=iPhone X','platform=iOS Simulator,OS=15.2,name=iPhone 13 Pro']
     steps:
       - name: Checkout
         uses: actions/checkout@main
@@ -21,3 +21,19 @@ jobs:
           xcodebuild clean test -project RickAndMorty.xcodeproj -scheme RickAndMorty -destination "${destination}" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
         env: 
          destination: ${{ matrix.destination }}
+         
+  test:
+    name: Test
+    runs-on: macOS-latest
+    strategy:
+        matrix:
+          destination: ['platform=iOS Simulator,OS=15.2,name=iPhone X','platform=iOS Simulator,OS=15.2,name=iPhone 13 Pro']
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+      - name: Build and test
+        run: |
+          xcodebuild test -project RickAndMorty.xcodeproj -scheme RickAndMorty -destination "${destination}" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -enableCodeCoverage YES 
+        env: 
+         destination: ${{ matrix.destination }}
+ 

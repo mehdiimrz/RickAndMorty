@@ -24,6 +24,7 @@ jobs:
     steps:
       - uses: actions/checkout@main
       - name: Lint code using SwiftLint
+        continue-on-error: true 
         run: swiftlint lint --reporter github-actions-logging 
       
   test:

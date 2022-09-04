@@ -33,7 +33,5 @@ jobs:
         uses: actions/checkout@main
       - name: Build and test
         run: |
-          xcodebuild test -project RickAndMorty.xcodeproj -scheme RickAndMorty -destination "${destination}" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -enableCodeCoverage YES 
-        env: 
-         destination: ${{ matrix.destination }}
+          xcodebuild test -project RickAndMorty.xcodeproj -scheme RickAndMorty -destination "${destination}" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -enableCodeCoverage YES -only-testing:RickAndMortyTests
  

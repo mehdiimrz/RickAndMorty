@@ -17,16 +17,16 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Build
-      run: swift build -v
+      run: xcodebuild clean test -project "RickAndMorty.xcproject" -scheme "RickAndMorty" -destination "platform=iOS Simulator,name=iPhone 12 Pro,OS=latest" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
 
-  test:
-      name: Test
-      runs-on: macOS-latest
-      strategy:
-          matrix:
-            destination: ['platform=iOS Simulator,OS=12.4,name=iPhone 11 Pro Max']
-      steps:
-        - name: Checkout
-          uses: actions/checkout@master
-        - name: Run tests
-          run: set -o pipefail && xcodebuild test-without-building -xctestrun $(find . -type f -name "*.xctestrun") -destination "platform=iOS Simulator,name=$DEVICE" -derivedDataPath $DERIVED_DATA_PATH -enableCodeCoverage YES
+#   test:
+#       name: Test
+#       runs-on: macOS-latest
+#       strategy:
+#           matrix:
+#             destination: ['platform=iOS Simulator,OS=12.4,name=iPhone 11 Pro Max']
+#       steps:
+#         - name: Checkout
+#           uses: actions/checkout@master
+#         - name: Run tests
+#           run: set -o pipefail && xcodebuild test-without-building -xctestrun $(find . -type f -name "*.xctestrun") -destination "platform=iOS Simulator,name=$DEVICE" -derivedDataPath $DERIVED_DATA_PATH -enableCodeCoverage YES

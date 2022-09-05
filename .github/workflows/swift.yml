@@ -16,8 +16,6 @@ jobs:
       - name: Build
         run: |
           xcodebuild  -project RickAndMorty.xcodeproj  -scheme RickAndMorty  -destination 'platform=iOS Simulator,name=iPhone 13' CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
-          
-          swiftlint lint --reporter github-actions-logging
 
   SwiftLint:
     runs-on: macOS-latest
